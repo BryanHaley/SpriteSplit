@@ -3,7 +3,7 @@
 #include <string>
 #include <iostream>
 
-#define VERSION_NUM "0.1.0"
+#define VERSION_NUM "0.2.0"
 
 using namespace std;
 

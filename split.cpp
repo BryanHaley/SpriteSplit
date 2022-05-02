@@ -49,6 +49,12 @@ bool split(string input, string output, string format, int rows, int cols, int x
 				// Create filepath for sprite
 				string output_filepath = output + "_" + to_string(index) + "." + format;
 
+				// Don't right _index if we're just cropping
+				if (rows == 1 && cols == 1)
+				{
+					output_filepath = output + "." + format;
+				}
+
 				// Output only if sprite isn't empty
 				if (sprite.columns() > 0 && sprite.rows() > 0)
 				{

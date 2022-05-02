@@ -3,12 +3,12 @@
 #include <string>
 #include <iostream>
 
-#define VERSION_NUM "0.2.0"
+#define VERSION_NUM "0.3.0"
 
 using namespace std;
 
 // Lazy. Avoid making header file for one function.
-bool split(string input, string output, string format, int rows, int cols, int xoff, int yoff, int width, int height, int hpad, int vpad);
+bool split(string input, string output, string format, int rows, int cols, int xoff, int yoff, int width, int height, int hpad, int vpad, string mask);
 
 int main(int argc, char **argv)
 {
@@ -18,7 +18,7 @@ int main(int argc, char **argv)
 	pg.description("Splits spritesheet images into individual sprite images");
 	pg.author("Bryan Haley");
 
-	pg.usage("[-v|-l|-i|-o|-f|-r|-c|-x|-y|-w|-h|-p|-q]");
+	pg.usage("[-v|-l|-i|-o|-f|-r|-c|-x|-y|-w|-h|-p|-q|-m]");
 
 	pg.set("help,l", "Print the help output"); // using -l because -h is used for cell height
 	pg.set("version,v", "Print the program version");
@@ -40,12 +40,15 @@ int main(int argc, char **argv)
 	pg.set("hpad,p", "0", "integer", "The number of padding pixels between cells (horizontal)");
 	pg.set("vpad,q", "0", "integer", "The number of padding pixels between cells (vertical)");
 
+	pg.set("mask,m", "", "hex", "Color to mask out as transparent. Accepts SVG color codes (e.g. hex codes or color names like red)");
+
 	pg.info("Examples", {
     pg.name() + " --help",
     pg.name() + " --version",
     pg.name() + " -i test.jpg -r 2 -c 2",
     pg.name() + " -i test.jpg -r 2 -c 2 -x 27 -y 23 -w 570 -h 380",
-    pg.name() + " -i test.jpg -x 27 -y 23 -w 570 -h 380"
+    pg.name() + " -i test.jpg -x 27 -y 23 -w 570 -h 380",
+    pg.name() + " -i test.jpg -m \"#FEF9F3\""
   	});
 
 	int status = pg.parse();
@@ -92,6 +95,7 @@ int main(int argc, char **argv)
 	int height = pg.get<int>("height");
 	int hpad = pg.get<int>("hpad");
 	int vpad = pg.get<int>("vpad");
+	string mask = pg.get<string>("mask");
 
 	// Error check
 	if (input == "")
@@ -130,7 +134,7 @@ int main(int argc, char **argv)
 	}
 
 	// Split up image
-	bool success = split(input, output, format, rows, cols, xoff, yoff, width, height, hpad, vpad);
+	bool success = split(input, output, format, rows, cols, xoff, yoff, width, height, hpad, vpad, mask);
 
 	if (!success)
 	{

@@ -5,7 +5,7 @@
 using namespace std;
 using namespace Magick;
 
-bool split(string input, string output, string format, int rows, int cols, int xoff, int yoff, int width, int height, int hpad, int vpad)
+bool split(string input, string output, string format, int rows, int cols, int xoff, int yoff, int width, int height, int hpad, int vpad, string mask)
 {
 	InitializeMagick(NULL);
 
@@ -42,6 +42,12 @@ bool split(string input, string output, string format, int rows, int cols, int x
 
 				// Crop sprite out of spritesheet
 				sprite.crop(Geometry(cell_width,cell_height,x,y));
+
+				// Mask out color
+				if (mask != "")
+				{
+					sprite.transparent(Color(mask));
+				}
 
 				// Generate an index so each sprite has a unique filename
 				int index = (i*cols)+j;

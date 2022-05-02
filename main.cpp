@@ -3,12 +3,12 @@
 #include <string>
 #include <iostream>
 
-#define VERSION_NUM "0.3.0"
+#define VERSION_NUM "0.4.0"
 
 using namespace std;
 
 // Lazy. Avoid making header file for one function.
-bool split(string input, string output, string format, int rows, int cols, int xoff, int yoff, int width, int height, int hpad, int vpad, string mask);
+bool split(string input, string output, string format, int rows, int cols, int xoff, int yoff, int width, int height, int hpad, int vpad, int startIndex, string mask);
 
 int main(int argc, char **argv)
 {
@@ -18,7 +18,7 @@ int main(int argc, char **argv)
 	pg.description("Splits spritesheet images into individual sprite images");
 	pg.author("Bryan Haley");
 
-	pg.usage("[-v|-l|-i|-o|-f|-r|-c|-x|-y|-w|-h|-p|-q|-m]");
+	pg.usage("[-v|-l|-i|-o|-f|-r|-c|-x|-y|-w|-h|-p|-q|-m|-s]");
 
 	pg.set("help,l", "Print the help output"); // using -l because -h is used for cell height
 	pg.set("version,v", "Print the program version");
@@ -41,6 +41,8 @@ int main(int argc, char **argv)
 	pg.set("vpad,q", "0", "integer", "The number of padding pixels between cells (vertical)");
 
 	pg.set("mask,m", "", "hex", "Color to mask out as transparent. Accepts SVG color codes (e.g. hex codes or color names like red)");
+
+	pg.set("startindex,s", "0", "integer", "Starting index used for naming");
 
 	pg.info("Examples", {
     pg.name() + " --help",
@@ -95,6 +97,7 @@ int main(int argc, char **argv)
 	int height = pg.get<int>("height");
 	int hpad = pg.get<int>("hpad");
 	int vpad = pg.get<int>("vpad");
+	int startIndex = pg.get<int>("startindex");
 	string mask = pg.get<string>("mask");
 
 	// Error check
@@ -134,7 +137,7 @@ int main(int argc, char **argv)
 	}
 
 	// Split up image
-	bool success = split(input, output, format, rows, cols, xoff, yoff, width, height, hpad, vpad, mask);
+	bool success = split(input, output, format, rows, cols, xoff, yoff, width, height, hpad, vpad, startIndex, mask);
 
 	if (!success)
 	{

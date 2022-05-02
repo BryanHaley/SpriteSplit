@@ -5,7 +5,7 @@
 using namespace std;
 using namespace Magick;
 
-bool split(string input, string output, string format, int rows, int cols, int xoff, int yoff, int width, int height, int hpad, int vpad, string mask)
+bool split(string input, string output, string format, int rows, int cols, int xoff, int yoff, int width, int height, int hpad, int vpad, int startIndex, string mask)
 {
 	InitializeMagick(NULL);
 
@@ -50,7 +50,7 @@ bool split(string input, string output, string format, int rows, int cols, int x
 				}
 
 				// Generate an index so each sprite has a unique filename
-				int index = (i*cols)+j;
+				int index = (i*cols)+j+startIndex;
 
 				// Create filepath for sprite
 				string output_filepath = output + "_" + to_string(index) + "." + format;

@@ -4,7 +4,7 @@ Quick utility to split an image (i.e. a spritesheet) into several smaller images
 
 ## Usage
 ```
-  spritesplit [-v|-l|-i|-o|-f|-r|-c|-x|-y|-w|-h|-p|-q|-m]
+  spritesplit [-v|-l|-i|-o|-f|-r|-c|-x|-y|-w|-h|-p|-q|-m|-s]
 
 Flags:
   -l, --help
@@ -37,6 +37,8 @@ Options:
     The number of padding pixels between cells (vertical)
   -m, --mask=<hex>
     Color to mask out as transparent. Accepts SVG color codes (e.g. hex codes or color names like red)
+  -s, --startindex=<integer>
+    Starting index used for naming
 
 Examples:
   spritesplit --help

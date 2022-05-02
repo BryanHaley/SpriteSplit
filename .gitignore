@@ -3,3 +3,7 @@ spritesplit
 
 # Generated example sprites
 *.png
+
+# macOS
+.DS_Store
+._*

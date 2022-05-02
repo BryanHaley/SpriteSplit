@@ -34,6 +34,7 @@ bool split(string input, string output, string format, int rows, int cols, int x
 				// Create sprite as a copy of spritesheet
 				// Actual pixel data is stored in the heap and shouldn't be duplicated (I think) so this should be fine
 				Image sprite (spritesheet);
+				sprite.repage();
 
 				// Get the location in the spritesheet of this cell
 				int x = xoff + (j*cell_width) + (j*hpad);

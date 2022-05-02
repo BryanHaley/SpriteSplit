@@ -18,9 +18,9 @@ int main(int argc, char **argv)
 	pg.description("Splits spritesheet images into individual sprite images");
 	pg.author("Bryan Haley");
 
-	pg.usage("[-v|-h|-i|-o|-f|-r|-c|-x|-y|-j|-k|-p|-q]");
+	pg.usage("[-v|-l|-i|-o|-f|-r|-c|-x|-y|-w|-h|-p|-q]");
 
-	pg.set("help,h", "Print the help output");
+	pg.set("help,l", "Print the help output"); // using -l because -h is used for cell height
 	pg.set("version,v", "Print the program version");
 
 	pg.set("input,i", "", "filepath", "The input spritesheet image");
@@ -28,14 +28,14 @@ int main(int argc, char **argv)
 
 	pg.set("format,f", "png", "image file format", "The output image format (must be supported by imagemagick)");
 
-	pg.set("rows,r", "0", "integer", "The number of rows");
-	pg.set("columns,c", "0", "integer", "The number of columns");
+	pg.set("rows,r", "1", "integer", "The number of rows"); // default value of 1 makes this utility useful for cropping
+	pg.set("columns,c", "1", "integer", "The number of columns");
 
 	pg.set("xoff,x", "0", "integer", "Starting x offset");
 	pg.set("yoff,y", "0", "integer", "Starting y offset");
 
-	pg.set("width,j", "0", "integer", "Override sprite width");
-	pg.set("height,k", "0", "integer", "Override sprite height");
+	pg.set("width,w", "0", "integer", "Override sprite width");
+	pg.set("height,h", "0", "integer", "Override sprite height");
 
 	pg.set("hpad,p", "0", "integer", "The number of padding pixels between cells (horizontal)");
 	pg.set("vpad,q", "0", "integer", "The number of padding pixels between cells (vertical)");
@@ -44,7 +44,8 @@ int main(int argc, char **argv)
     pg.name() + " --help",
     pg.name() + " --version",
     pg.name() + " -i test.jpg -r 2 -c 2",
-    pg.name() + " -i test.jpg -r 2 -c 2 -x 27 -y 23 --width=570 --height=380",
+    pg.name() + " -i test.jpg -r 2 -c 2 -x 27 -y 23 -w 570 -h 380",
+    pg.name() + " -i test.jpg -x 27 -y 23 -w 570 -h 380"
   	});
 
 	int status = pg.parse();
@@ -67,7 +68,7 @@ int main(int argc, char **argv)
 
 	if (pg.get<bool>("help"))
 	{
-		// handle -h and --help
+		// handle -l and --help
 		cout << pg.help();
 		return 0;
 	}

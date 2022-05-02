@@ -1,13 +1,13 @@
 # SpriteSplit
 
-Quick utility to split an image (i.e. a spritesheet) into several smaller images (i.e. sprites).
+Quick utility to split an image (i.e. a spritesheet) into several smaller images (i.e. sprites), or crop a single sprite out of a spritesheet.
 
 ## Usage
 ```
-  spritesplit [-v|-h|-i|-o|-f|-r|-c|-x|-y|-j|-k|-p|-q]
+  spritesplit [-v|-l|-i|-o|-f|-r|-c|-x|-y|-w|-h|-p|-q]
 
 Flags:
-  -h, --help
+  -l, --help
     Print the help output
   -v, --version
     Print the program version
@@ -27,9 +27,9 @@ Options:
     Starting x offset
   -y, --yoff=<integer>
     Starting y offset
-  -j, --width=<integer>
+  -w, --width=<integer>
     Override sprite width
-  -k, --height=<integer>
+  -h, --height=<integer>
     Override sprite height
   -p, --hpad=<integer>
     The number of padding pixels between cells (horizontal)
@@ -40,7 +40,8 @@ Examples:
   spritesplit --help
   spritesplit --version
   spritesplit -i test.jpg -r 2 -c 2
-  spritesplit -i test.jpg -r 2 -c 2 -x 27 -y 23 --width=570 --height=380
+  spritesplit -i test.jpg -r 2 -c 2 -x 27 -y 23 -w 570 -h 380
+  spritesplit -i test.jpg -x 27 -y 23 -w 570 -h 380
 ```
 
 ## Building
